@@ -21,11 +21,11 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v11.5
         with:
-          path: visualizer
+          path: ./visualizer
           files: \.json$
       - name: deploy all
         if: steps.changed-files.outputs.any_changed == 'true'
-        working-directory: visualizer
+        working-directory: ./visualizer
         run: |
           FILES=$(ls)
           for v in $FILES

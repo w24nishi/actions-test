@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - visualizer/*
+
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        path: visualizer
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v11.5
+      with:
+        fetch-depth: 0
+        path: visualizer
+    - name: deploy all
+      if: steps.changed-files.outputs.any_changed == 'true'
+      working-directory: visualizer
+      run: |
+        FILES=$(ls)
+        for v in $FILES
+        do
+          echo $v
+        done

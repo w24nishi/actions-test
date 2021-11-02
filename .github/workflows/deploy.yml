@@ -34,15 +34,17 @@ jobs:
         working-directory: ./visualizer
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          for file in ${{ steps.changed-files.outputs.all_modified_files }}
+          for FILEPATH in ${{ steps.changed-files.outputs.all_modified_files }}
           do
-            echo "$file was modified"
+            FILE=$(echo $file | sed 's/^visualizer\///')
+            echo "$FILE was modified"
           done
       - name: delete deleted ones
         working-directory: ./visualizer
         if: steps.changed-files.outputs.any_deleted == 'true'
         run: |
-          for file in ${{ steps.changed-files.outputs.deleted_files }}
+          for FILEPATH in ${{ steps.changed-files.outputs.deleted_files }}
           do
-            echo "$file was deleted"
+            FILE=$(echo $file | sed 's/^visualizer\///')
+            echo "$FILE was deleted"
           done

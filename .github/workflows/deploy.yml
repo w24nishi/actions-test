@@ -20,7 +20,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v11.5
         with:
-          files: visualizer/*\.json$
+          files: visualizer/.*\.json$
       - name: deploy all
         working-directory: ./visualizer
         if: steps.changed-files.outputs.any_changed == 'true'

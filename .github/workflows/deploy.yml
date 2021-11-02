@@ -24,8 +24,8 @@ jobs:
           path: ./visualizer
           files: \.json$
       - name: deploy all
-        if: steps.changed-files.outputs.any_changed == 'true'
         working-directory: ./visualizer
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           FILES=$(ls)
           for v in $FILES

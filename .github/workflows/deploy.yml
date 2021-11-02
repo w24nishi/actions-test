@@ -36,7 +36,7 @@ jobs:
         run: |
           for FILEPATH in ${{ steps.changed-files.outputs.all_modified_files }}
           do
-            FILE=$(echo $file | sed 's/^visualizer\///')
+            FILE=$(echo $FILEPATH | sed 's/^visualizer\///')
             echo "$FILE was modified"
           done
       - name: delete deleted ones
@@ -45,6 +45,6 @@ jobs:
         run: |
           for FILEPATH in ${{ steps.changed-files.outputs.deleted_files }}
           do
-            FILE=$(echo $file | sed 's/^visualizer\///')
+            FILE=$(echo $FILEPATH | sed 's/^visualizer\///')
             echo "$FILE was deleted"
           done

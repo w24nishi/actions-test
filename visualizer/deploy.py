@@ -17,7 +17,7 @@ def get_something():
     res = requests.get(
         'https://www.google.com'
     )
-    logger.info(res.json())
+    logger.info(res.text)
 
 if __name__ == '__main__':
     logger.info(os.environ.get('HOGEFUGA'))

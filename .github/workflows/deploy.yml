@@ -25,7 +25,7 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('visualizer/requirements.txt')}}
       - name: Install Python dependencies
-        run: pip install -r visualizer/requirements.txt
+        run: pip install --upgrade --upgrade-strategy eager -r visualizer/requirements.txt
       - name: Run script to deploy/remove dashboards
         env:
           HOGEFUGA: this is set to HOGEFUGA environment variable

@@ -20,6 +20,10 @@ jobs:
           python-version: 3.9
       - name: Show Python version
         run: python --version
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFles('visualizer/requirements.txt')}}
       - name: Install Python dependencies
         run: pip install -r visualizer/requirements.txt
       - name: Run script to deploy/remove dashboards

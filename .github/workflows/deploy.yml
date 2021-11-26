@@ -14,6 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Get changes since last release
+        id: changes
+        uses: simbo/changes-since-last-release-action@v1
+      - name: Output changes since last release
+        run: |
+          echo "Changes since ${{ steps.changes.outputs.last-tag }}:"
+          echo "${{ steps.changes.outputs.log }}"
       - name: Setup Python
         uses: actions/setup-python@v2
         with:

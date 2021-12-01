@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  show-diff-from-last-release:
+    name: Show diff from last release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # need tags and commit history to get changes
+      - name: get last tag
+        id: last-tag
+        run: |
+          tag="$(git descrive --tags --abbref=0 HEAD^ 2> /dev/null)"
+          echo "::set-output name=last-tag::$tag"
+      - name: show diff
+        id: show-diff
+        run: |
+          PREV_SHA=$(git rev-parse "$PREV_TAG")
+          CURRENT_SHA=$(git rev-parse HEAD)
+          DIFFS=$(git diff --name-only "$PREV_SHA" "$CURRENT_SHA")
+          echo "diffs: $DIFFS"
+          echo "::set-output name=diffs::$DIFFS"

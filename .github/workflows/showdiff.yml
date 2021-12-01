@@ -21,7 +21,7 @@ jobs:
       - name: show diff
         id: show-diff
         env:
-          PREV_TAG: ${{ steps.last-tag.last-tag }}
+          PREV_TAG: ${{ steps.last-tag.outputs.last-tag }}
         run: |
           PREV_SHA=$(git rev-parse "$PREV_TAG")
           CURRENT_SHA=$(git rev-parse HEAD)

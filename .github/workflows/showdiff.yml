@@ -16,10 +16,12 @@ jobs:
       - name: get last tag
         id: last-tag
         run: |
-          tag="$(git describe --tags --abbrev=0 HEAD^ 2> /dev/null)"
-          echo "::set-output name=last-tag::$tag"
+          LAST_TAG="$(git describe --tags --abbrev=0 HEAD^ 2> /dev/null)"
+          echo "::set-output name=last-tag::$LAST_TAG"
       - name: show diff
         id: show-diff
+        env:
+          PREV_TAG: ${{ steps.last-tag.last-tag }}
         run: |
           PREV_SHA=$(git rev-parse "$PREV_TAG")
           CURRENT_SHA=$(git rev-parse HEAD)

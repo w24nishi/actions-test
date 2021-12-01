@@ -16,7 +16,7 @@ jobs:
       - name: get last tag
         id: last-tag
         run: |
-          tag="$(git descrive --tags --abbref=0 HEAD^ 2> /dev/null)"
+          tag="$(git describe --tags --abbrev=0 HEAD^ 2> /dev/null)"
           echo "::set-output name=last-tag::$tag"
       - name: show diff
         id: show-diff

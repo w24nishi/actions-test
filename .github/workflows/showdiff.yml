@@ -22,9 +22,13 @@ jobs:
         id: show-diff
         env:
           PREV_TAG: ${{ steps.last-tag.outputs.last-tag }}
+          FILTER_EXP: visualizer/.*\.json$
         run: |
           PREV_SHA=$(git rev-parse "$PREV_TAG")
           CURRENT_SHA=$(git rev-parse HEAD)
-          DIFFS=$(git diff --name-only "$PREV_SHA" "$CURRENT_SHA")
+          DIFFS=$(git diff --name-only "$PREV_SHA" "$CURRENT_SHA" | grep "$FILTER_EXP")
+          ALL_MODIFIED=$(git diff --diff-filter="ACMR" --name-only "$PREV_SHA" "$CURRENT_SHA" | grep "$FILTER_EXP")
           echo "diffs: $DIFFS"
+          echo "all_modified: $ALL_MODIFIED"
           echo "::set-output name=diffs::$DIFFS"
+          echo "::set-output name=all_modified::$ALL_MODIFIED"
